@@ -15,22 +15,23 @@ class Users(Base):
     last_name: Mapped[str] = mapped_column(String(50), nullable=False)
     father_name: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     email: Mapped[str] = mapped_column(String(150), nullable=False, unique=True)
-    password: Mapped[str] = mapped_column(String(100), nullable=False)
+    password: Mapped[str] = mapped_column(String(200), nullable=False)
 
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    is_admin: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
 
 
 class Producers(Base):
     __tablename__ = "producers"
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, nullable=False)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
-    
+
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
 class Watches(Base):
@@ -57,7 +58,7 @@ class Watches(Base):
         'check': CheckConstraint(
             "gender IN ('unisex', 'male', 'female')",
             name='valid_gender'
-    )}) 
+    )})
     price: Mapped[float] = mapped_column(Numeric, nullable=False, info={
         'check': CheckConstraint(
             "price > 0.00",
@@ -69,7 +70,7 @@ class Watches(Base):
 
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
 class VerificationCodes(Base):
@@ -106,7 +107,7 @@ class Orders(Base):
 
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
 class OrdersWatches(Base):
@@ -116,4 +117,17 @@ class OrdersWatches(Base):
     watch_id: Mapped[int] = mapped_column(ForeignKey('watches.id', ondelete="CASCADE"), nullable=False)
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
+class AdminLogs(Base):
+    __tablename__ = "admin_logs"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, nullable=False)
+    admin_id: Mapped[int] = mapped_column(ForeignKey('users.id', ondelete="SET NULL"), nullable=True)
+    action: Mapped[str] = mapped_column(String(50), nullable=False)  # CREATE, UPDATE, DELETE, LOGIN
+    entity: Mapped[str] = mapped_column(String(50), nullable=False)  # users, watches, orders, etc.
+    entity_id: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True)
+    description: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+    ip_address: Mapped[Optional[str]] = mapped_column(String(45), nullable=True)  # IPv6
+
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
