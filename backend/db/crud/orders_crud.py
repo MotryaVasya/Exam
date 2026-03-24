@@ -17,6 +17,8 @@ async def create(db: AsyncSession, data: OrdersCreate) -> Orders:
             discount=data.discount,
             is_pickup=data.is_pickup,
             delivery_address=data.delivery_address,
+            notification_email=data.notification_email,
+            status='pending',
             updated_at=datetime.now()
         )
         db.add(order)

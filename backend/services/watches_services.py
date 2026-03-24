@@ -24,6 +24,7 @@ class WatchesService:
             count=watch.count,
             gender=watch.gender,
             price=watch.price,
+            image_url=watch.image_url,
             created_at=watch.created_at,
             updated_at=watch.updated_at
         )
@@ -41,13 +42,14 @@ class WatchesService:
             count=watch.count,
             gender=watch.gender,
             price=watch.price,
+            image_url=watch.image_url,
             created_at=watch.created_at,
             updated_at=watch.updated_at
         )
 
     async def get_all_watches(
-        self, 
-        skip: int = 0, 
+        self,
+        skip: int = 0,
         limit: int = 100,
         producer_id: int | None = None,
         type: str | None = None,
@@ -56,8 +58,8 @@ class WatchesService:
         max_price: float | None = None
     ) -> list[WatchesInfo]:
         watches = await get_all(
-            db=self.db, 
-            skip=skip, 
+            db=self.db,
+            skip=skip,
             limit=limit,
             producer_id=producer_id,
             type=type,
@@ -77,6 +79,7 @@ class WatchesService:
                 count=w.count,
                 gender=w.gender,
                 price=w.price,
+                image_url=w.image_url,
                 created_at=w.created_at,
                 updated_at=w.updated_at
             ) for w in watches
@@ -95,6 +98,7 @@ class WatchesService:
             count=watch.count,
             gender=watch.gender,
             price=watch.price,
+            image_url=watch.image_url,
             created_at=watch.created_at,
             updated_at=watch.updated_at
         )

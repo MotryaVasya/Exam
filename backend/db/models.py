@@ -65,8 +65,7 @@ class Watches(Base):
             name='check_price'
         )
     })
-
-    # подумать что еще добавить
+    image_url: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
 
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
@@ -104,6 +103,13 @@ class Orders(Base):
 
     is_pickup: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     delivery_address: Mapped[Optional[str]] = mapped_column(String(150), nullable=True)
+    notification_email: Mapped[Optional[str]] = mapped_column(String(150), nullable=True)
+    status: Mapped[str] = mapped_column(String(20), nullable=False, default='pending', info={
+        'check': CheckConstraint(
+            "status IN ('pending', 'confirmed', 'shipped', 'delivered', 'cancelled')",
+            name='valid_status'
+        )
+    })
 
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

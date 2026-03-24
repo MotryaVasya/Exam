@@ -21,6 +21,7 @@ async def create(db: AsyncSession, data: WatchesCreate) -> Watches:
             count=data.count,
             gender=data.gender,
             price=data.price,
+            image_url=data.image_url,
             updated_at=datetime.now()
         )
         db.add(watch)

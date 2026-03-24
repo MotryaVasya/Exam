@@ -13,6 +13,7 @@ class WatchesBase(BaseModel):
     count: int = Field(ge=0)
     gender: str = Field(pattern="^(unisex|male|female)$")
     price: float = Field(gt=0)
+    image_url: Optional[str] = None
 
 
 class WatchesCreate(WatchesBase):
@@ -29,6 +30,7 @@ class WatchesUpdate(BaseModel):
     count: Optional[int] = None
     gender: Optional[str] = None
     price: Optional[float] = None
+    image_url: Optional[str] = None
 
 
 class WatchesInfo(BaseModel):
@@ -42,6 +44,7 @@ class WatchesInfo(BaseModel):
     count: int
     gender: str
     price: float
+    image_url: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 

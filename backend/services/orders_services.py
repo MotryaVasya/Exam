@@ -20,6 +20,8 @@ class OrdersService:
             discount=order.discount,
             is_pickup=order.is_pickup,
             delivery_address=order.delivery_address,
+            notification_email=order.notification_email,
+            status=order.status,
             created_at=order.created_at,
             updated_at=order.updated_at
         )
@@ -33,6 +35,8 @@ class OrdersService:
             discount=order.discount,
             is_pickup=order.is_pickup,
             delivery_address=order.delivery_address,
+            notification_email=order.notification_email,
+            status=order.status,
             created_at=order.created_at,
             updated_at=order.updated_at
         )
@@ -47,6 +51,8 @@ class OrdersService:
                 discount=o.discount,
                 is_pickup=o.is_pickup,
                 delivery_address=o.delivery_address,
+                notification_email=o.notification_email,
+                status=o.status,
                 created_at=o.created_at,
                 updated_at=o.updated_at
             ) for o in orders
@@ -62,6 +68,8 @@ class OrdersService:
                 discount=o.discount,
                 is_pickup=o.is_pickup,
                 delivery_address=o.delivery_address,
+                notification_email=o.notification_email,
+                status=o.status,
                 created_at=o.created_at,
                 updated_at=o.updated_at
             ) for o in orders
@@ -76,6 +84,8 @@ class OrdersService:
             discount=order.discount,
             is_pickup=order.is_pickup,
             delivery_address=order.delivery_address,
+            notification_email=order.notification_email,
+            status=order.status,
             created_at=order.created_at,
             updated_at=order.updated_at
         )

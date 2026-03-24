@@ -9,6 +9,7 @@ class OrdersBase(BaseModel):
     discount: Optional[int] = None
     is_pickup: bool = False
     delivery_address: Optional[str] = None
+    notification_email: Optional[str] = None
 
 
 class OrdersCreate(OrdersBase):
@@ -21,6 +22,8 @@ class OrdersUpdate(BaseModel):
     discount: Optional[int] = None
     is_pickup: Optional[bool] = None
     delivery_address: Optional[str] = None
+    notification_email: Optional[str] = None
+    status: Optional[str] = Field(None, pattern="^(pending|confirmed|shipped|delivered|cancelled)$")
 
 
 class OrdersInfo(BaseModel):
@@ -30,6 +33,8 @@ class OrdersInfo(BaseModel):
     discount: Optional[int] = None
     is_pickup: bool
     delivery_address: Optional[str] = None
+    notification_email: Optional[str] = None
+    status: str
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
